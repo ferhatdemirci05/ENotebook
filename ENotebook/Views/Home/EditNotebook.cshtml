@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Yeni Not Defteri";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<h2 class="text-center">Yeni Not Defteri Bilgileri</h2><br />
+<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 well">
+    <form method="post" action="/Home/EditNotebook">
+        <input type="hidden" name="ID" value="@Model.ID" />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <label for="name">Not Defteri Adı :</label>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" class="form-control" id="name" name="Name" value="@Model.Name" required />
+                </div>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @if (Model.ID == 0)
+                    {
+                        <input type="submit" class="btn btn-success" value="Kaydet" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-success" value="Güncelle" />
+                    }
+
+                    <a href="/Home/" class="btn btn-danger pull-right">İptal</a>
+                </div>
+            </div>
+        </div><br />
+    </form>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div style="display:none" class="text-center alert alert-danger" id="error-message">@ViewBag.ErrorMessage</div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        if ($("#error-message").html() != "") {
+            $("#error-message").slideDown();
+            setTimeout(function () {
+                $("#error-message").slideUp();
+            }, 3000)
+        }
+    </script>
+}

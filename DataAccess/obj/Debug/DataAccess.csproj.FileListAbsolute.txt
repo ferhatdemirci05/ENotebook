@@ -1,0 +1,14 @@
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\DataAccess.dll.config
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\Entities.dll
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\Entities.pdb
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\obj\Debug\DataAccess.csprojResolveAssemblyReference.cache
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\obj\Debug\DataAccess.Migrations.FirstMigrations.resources
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\obj\Debug\DataAccess.csproj.GenerateResource.Cache
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\Ferhat\Desktop\ENotebook\DataAccess\obj\Debug\DataAccess.pdb

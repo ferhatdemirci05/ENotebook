@@ -1,0 +1,103 @@
+﻿@using Entities
+@model List<Note>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2 class="text-center">Paylaşılan Notlar</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td width="5%">#</td>
+            <td width="10%">Paylaşan</td>
+            <td width="15%">Not Adı</td>
+            <td width="40%">Not</td>
+            <td width="10%">Okunma Sayısı</td>
+            <td width="10%">Kayıt Tarihi</td>
+            <td width="10%">İşlemler</td>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td><img src="~/img/11-blank-note-paper-free-cliparts-that-you-can-download-to-you-zckVnl-clipart.png" style="width:100%" /></td>
+                <td>@Model[i].Notebook.User.FirstName @Model[i].Notebook.User.LastName</td>
+                <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@Model[i].ID)">@Model[i].Name</a></td>
+                <td>
+                    @{
+                        string newDescription = "";
+                        for (int j = 0; j < (Model[i].Description.Length < 60 ? Model[i].Description.Length : 60); j++)
+                        {
+                            newDescription += Model[i].Description[j];
+                        }
+                        newDescription += "...";
+                    }
+                    <a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@Model[i].ID)"> @newDescription</a>
+                </td>
+                <td id="hit-@Model[i].ID">@Model[i].Hit</td>
+                <td>@Model[i].DateOfCration.ToShortDateString()</td>
+                <td>
+                    @if (Model[i].Notebook.UserID == (int)Session["UserId"])
+                    {
+                        <input type="button" onclick="share(@Model[i].ID)" class="btn btn-xs btn-primary" value="Gizle -" />
+                    }
+                </td>
+            </tr>
+                        }
+    </tbody>
+</table>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-right">
+                    <div id="noteDate">
+                    </div>
+                </div>
+                <h4 class="modal-title" id="myLargeModalLabel">Modal Başlığı</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modalBody">
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function openNote(id) {
+            $.ajax({
+                url: "/Notebook/GetNote/" + id,
+                type: "Post",
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("myLargeModalLabel").innerText = data.Name
+                    document.getElementById("modalBody").innerText = data.Description
+                    document.getElementById("hit-" + id).innerText = data.Hit
+
+                    document.getElementById("noteDate").innerText = data.DateOfCration
+                }
+
+            })
+        }
+
+        function share(id) {
+
+            var button = event.target
+            $.ajax({
+                url: "/Notebook/Share/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    window.location.reload(false)
+                }
+            })
+        }
+    </script>
+}

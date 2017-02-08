@@ -1,0 +1,40 @@
+﻿@using Entities
+@model List<Notebook>
+@{
+    ViewBag.Title = "Not Defteri";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<h2 class="text-center">Not Defterlerim</h2><br />
+<div class="col-md-3 col-sm-4 col-xs-6 well">
+    <a href="/Home/EditNotebook">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <img src="~/img/Ambox_emblem_plus.svg.png" style="width:125%;" />
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-8">
+            <h4>Not Defteri Oluştur</h4>
+        </div>
+    </a>
+</div>
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="col-md-3 col-sm-4 col-xs-6 well">
+        <a href="/Notebook/Index/@Model[i].ID">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+                <img src="~/img/pT7rrEbkc.png" style="width:100%"/>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-8">
+                <strong>
+                    @Model[i].Name<br />
+                    Kayıt Tarihi : @Model[i].DateOfCration.ToShortDateString()<br />
+                    Not Sayısı : @Model[i].Notes.Count
+                </strong>
+            </div>
+        </a>
+        <div class="pull-right">
+            <a href="/Home/EditNotebook/@Model[i].ID" class="btn btn-xs btn-primary">Güncelle</a> 
+            <a href="/Home/DeleteNotebook/@Model[i].ID" class="btn btn-xs btn-danger">Kaldır</a> 
+        </div>
+
+    </div>
+}

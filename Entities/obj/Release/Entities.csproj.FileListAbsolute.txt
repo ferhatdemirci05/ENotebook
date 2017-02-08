@@ -1,0 +1,5 @@
+C:\Users\Ferhat\Desktop\ENotebook\Entities\bin\Release\Entities.dll
+C:\Users\Ferhat\Desktop\ENotebook\Entities\bin\Release\Entities.pdb
+C:\Users\Ferhat\Desktop\ENotebook\Entities\obj\Release\Entities.csprojResolveAssemblyReference.cache
+C:\Users\Ferhat\Desktop\ENotebook\Entities\obj\Release\Entities.dll
+C:\Users\Ferhat\Desktop\ENotebook\Entities\obj\Release\Entities.pdb

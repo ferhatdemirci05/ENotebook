@@ -1,0 +1,105 @@
+﻿@using Entities
+@model List<Note>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2 class="text-center">Favori Notlarım</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="10%">Not Defteri</th>
+            <th width="15%">Not Adı</th>
+            <th width="40%">Not</th>
+            <th width="10%">Okunma Sayısı</th>
+            <th width="10%">Kayıt Tarihi</th>
+            <th width="10%">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td><img src="~/img/11-blank-note-paper-free-cliparts-that-you-can-download-to-you-zckVnl-clipart.png" style="width:100%" /></td>
+                <td><a href="/Notebook/Index/@Model[i].Notebook.ID">@Model[i].Notebook.Name</a></td>
+                <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@Model[i].ID)">@Model[i].Name</a></td>
+                <td>
+                    @{
+                        string newDescription = "";
+                        for (int j = 0; j < (Model[i].Description.Length < 60 ? Model[i].Description.Length : 60); j++)
+                        {
+                            newDescription += Model[i].Description[j];
+                        }
+                        newDescription += "...";
+                    }
+                    <a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@Model[i].ID)"> @newDescription</a>
+                </td>
+                <td id="hit-@Model[i].ID">@Model[i].Hit</td>
+                <td>@Model[i].DateOfCration.ToShortDateString()</td>
+                <td><a href="" onclick="Favorite(@Model[i].ID)" class="btn btn-xs btn-warning">Favorilerden Çıkar - </a></td>
+            </tr>
+                        }
+    </tbody>
+</table>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-right">
+                    <div id="noteDate">
+                    </div>
+                </div>
+                <h4 class="modal-title" id="myLargeModalLabel">Modal Başlığı</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modalBody">
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+
+        function openNote(id) {
+            debugger
+            $.ajax({
+                url: "/Notebook/GetNote/" + id,
+                type: "Post",
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("myLargeModalLabel").innerText = data.Name
+                    document.getElementById("modalBody").innerText = data.Description
+                    document.getElementById("hit-" + id).innerText = data.Hit
+
+                    document.getElementById("noteDate").innerText=data.DateOfCration
+                }
+
+            })
+        }
+
+
+        function Favorite(id) {
+            var button = event.target
+            $.ajax({
+                url: "/Notebook/Favorite/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data.Flag) {
+                        button.value = "Favorilerden Çıkar -"
+                    } else {
+                        button.value = "Favorilere Ekle +"
+                    }
+                }
+            })
+        }
+    </script>
+
+}

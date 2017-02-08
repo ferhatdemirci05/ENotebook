@@ -1,0 +1,49 @@
+﻿@using Entities
+@model Note
+@{
+    ViewBag.Title = Model.Notebook.Name+" | Yeni Not";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2 class="text-center">@Model.Notebook.Name | Yeni Not</h2>
+
+<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 well">
+    <form method="post" action="/Notebook/EditNote/?notebookID=@Model.Notebook.ID&noteID=@Model.ID">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <label for="name">Not Adı :</label>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" class="form-control" id="name" name="Name" value="@Model.Name" required />
+                </div>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <label for="description">Not İçeriği :</label>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <textarea type="text" class="form-control" id="description" name="Description" rows="5"  required >@Model.Description</textarea>
+                </div>
+            </div>
+        </div><br />
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    @if (Model.ID == 0)
+                    {
+                        <input type="submit" class="btn btn-success" value="Kaydet" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-success" value="Güncelle" />
+                    }
+
+                    <a href="/Notebook/Index/@Model.Notebook.ID" class="btn btn-danger pull-right">İptal</a>
+                </div>
+            </div>
+        </div><br />
+    </form>
+</div>

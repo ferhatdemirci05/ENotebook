@@ -1,0 +1,111 @@
+﻿@model Entities.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Kayıt</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #cccccc;
+            background-image: url("http://www.neolux.fr/wp-content/uploads/2013/06/bg_formation1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            color:white;
+        }
+
+        .well {
+            background-color: #009688;
+            border-radius: 5%;
+            padding:1% 2% 0 2%;
+            box-shadow: 0 0 20px 1px #009688;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 well">
+            <div class="row" style="background-color:#047166;">
+                <div class="col-md-4 col-sm-4 col-xs-4" >
+                    <img src="https://lh3.googleusercontent.com/hpkrSf0RWXmPBy1bWmnIKu_dXCpAXqUIYCWLq18Jt8ZV-pfZevVc1zFkXGKg6UqfEw=w300" style="width:70%;" />
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                    <h2>Kayıt Ol</h2>
+                </div>
+            </div>
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="firstName">Adı</label>
+                            <input type="text" name="FirstName" id="firstName"  class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="lastName">Soyadı</label>
+                            <input type="text" name="LastName" id="lastName"  class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label>Cinsiyet</label><br />
+                            <input type="radio" value="1" name="GenderID" id="genderMale"  /><label for="genderMale">Erkek</label>
+                            <input type="radio" value="2" name="GenderID" id="genderFemale" /><label for="genderFemale">Bayan</label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="eMail">Mail Adresi</label>
+                            <input type="email" required="" name="EMail" id="eMail" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="mailConfirm">Mail Adresi (Onay)</label>
+                            <input type="email" name="MailConfirm" id="mailConfirm" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="password">Parola</label>
+                            <input type="password" name="Password" id="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <label for="passwordConfirm">Parola (Onay)</label>
+                            <input type="password" name="PasswordConfirm" id="passwordConfirm" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div style="display:none;" class="form-group text-center alert alert-danger" id="error-message">@TempData["ErrorMessage"]</div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <button class="btn btn-success">Kaydet</button>
+                            <a href="/Login/" class="btn btn-danger pull-right">Giriş Yap</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="~/scripts/jquery-3.1.1.js"></script>
+    <script>
+            $(document).ready(function () {
+                if ($("#error-message").html() != "") {
+                    $("#error-message").slideDown();
+                    setTimeout(function () {
+                        $("#error-message").slideUp();
+                    }, 3000)
+                }
+            })
+    </script>
+</body>
+</html>

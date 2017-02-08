@@ -1,0 +1,150 @@
+﻿@using Entities
+@model Notebook
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2 class="text-center">@Model.Name Not Defteri Not Listesi <strong class="pull-right"><a href="/Notebook/EditNote/?notebookID=@Model.ID" class="btn btn-success">Yeni Not</a>  <a href="/" class="btn btn-danger">Geri</a></strong></h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="15%">Note Adı</th>
+            <th width="35%">Açıklama</th>
+            <th width="10%">Kayıt Tarihi</th>
+            <th width="10%">Okunma Sayısı</th>
+            <th width="25%">İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Note note in Model.Notes)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/11-blank-note-paper-free-cliparts-that-you-can-download-to-you-zckVnl-clipart.png" style="width:100%" />
+                </td>
+                <td>
+                    <a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@note.ID)">@note.Name</a>
+                </td>
+                <td>
+                    @{
+                        string newDescription = "";
+                        for (int i = 0; i < (note.Description.Length < 60 ? note.Description.Length : 60); i++)
+                        {
+                            newDescription += note.Description[i];
+                        }
+                        newDescription += "...";
+                    }
+                    <a href="" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="openNote(@note.ID)"> @newDescription</a>
+                </td>
+                <td>
+                    @note.DateOfCration.ToShortDateString()
+                </td>
+                <td id="hit-@note.ID">
+                    @note.Hit
+                </td>
+                <td>
+                    <a href="/Notebook/EditNote/?notebookID=@Model.ID&noteID=@note.ID" class="btn btn-xs btn-default">Düzenle</a>
+                    @if (note.Share)
+                    {
+                        <input type="button" onclick="share(@note.ID)" class="btn btn-xs btn-primary" value="Gizle -" />
+                    }
+                    else
+                    {
+                        <input type="button" onclick="share(@note.ID)" class="btn btn-xs btn-primary" value="Paylaş +" />
+                    }
+                    @if (note.Flag)
+                    {
+                        <input type="button" onclick="Favorite(@note.ID)" class="btn btn-xs btn-warning" value="Favorilerden Çıkar -" />
+                    }
+                    else
+                    {
+                        <input type="button" onclick="Favorite(@note.ID)" class="btn btn-xs btn-warning" value="Favorilere Ekle +" />
+                    }
+                    <a href="/Notebook/deletNote/@note.ID" class="btn btn-xs btn-danger">Kaldır</a>
+                </td>
+            </tr>
+                        }
+    </tbody>
+</table>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="pull-right">
+                    <div id="noteDate">
+                    </div>
+                </div>
+                <h4 class="modal-title" id="myLargeModalLabel">Modal Başlığı</h4>
+            </div>
+            <div class="modal-body">
+                <p  id="modalBody">
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        function openNote(id) {
+            debugger
+            $.ajax({
+                url: "/Notebook/GetNote/" + id,
+                type: "Post",
+                dataType: "json",
+                success: function (data) {
+                    document.getElementById("myLargeModalLabel").innerText = data.Name
+                    document.getElementById("modalBody").innerText = data.Description
+                    document.getElementById("hit-" + id).innerText = data.Hit
+                    
+                    document.getElementById("noteDate").innerText=data.DateOfCration
+                }
+
+            })
+        }
+
+        function Favorite(id) {
+            var button=event.target
+            $.ajax({
+                url: "/Notebook/Favorite/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data.Flag){
+                        button.value="Favorilerden Çıkar -"
+                    }else{
+                        button.value="Favorilere Ekle +"
+                    }
+                }
+            })
+        }
+
+
+        function share(id) {
+            debugger
+
+            var button=event.target
+            $.ajax({
+                url: "/Notebook/Share/" + id,
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if(data.Share){
+                        button.value="Gizle -"
+
+                    }else{
+                        button.value="Paylaş +"
+                    }
+                }
+            })
+        }
+    </script>
+
+}

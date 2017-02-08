@@ -1,0 +1,54 @@
+﻿@using Entities
+@model Notebook
+@{
+    ViewBag.Title = "DeleteNotebook";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<h2 class="text-center">Not Defteri Kaldırma</h2>
+
+<div class="col-md-6 col-md-offset-3 col-xs-12 col-sm-8 col-sm-offset-2 well">
+    <div class="alert alert-danger">
+        <span>
+            @Model.Name isimli not defterini kaldırmak üzeresiniz.<br /><br />
+            @Model.Name not defterinde bulunan bütün notlar silinecek, isterseniz başka bir not defterine taşıyabilirsiniz.<br />
+        </span>
+    </div>
+    <div id="notebook" class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12" style="display:none">
+       <form method="get" action="/Home/MoveAndDelete">
+           <div class="col-md-8 col-sm-10 col-xs-10">
+               <input type="hidden" name="deleteID" value="@Model.ID" />
+               <select class="form-control" name="MoveID">
+                   @{
+                       List<Notebook> lstNotebook = ViewBag.NotebookList;
+                       for (int i = 0; i < lstNotebook.Count; i++)
+                       {
+                           if (Model.ID != lstNotebook[i].ID)
+                           {
+                            <option value="@lstNotebook[i].ID">@lstNotebook[i].Name</option>
+                           }
+                       }
+                }
+               </select>
+           </div>
+           <div class="col-md-4 col-sm-4 col-xs-4">
+               <input type="submit" class="btn btn-success" value="Taşı ve Kaldır" /> 
+           </div>
+           <br /><br /><br /><br />
+       </form>
+
+    </div>
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+        <a href="/Home/Delete/@Model.ID" class="btn btn-success">Herşeyi Kaldır</a> 
+        <button id="stone" class="btn btn-primary">Taşı</button>
+        <a href="/Home/Index" class="btn btn-danger">İptal</a>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $("#stone").click(function () {
+            $("#notebook").toggle(200)
+        })
+    </script>
+    
+    }

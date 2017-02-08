@@ -1,0 +1,11 @@
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\Bussiness.dll
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\Bussiness.pdb
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\DataAccess.dll
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\Entities.dll
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\EntityFramework.dll
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\DataAccess.pdb
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\Entities.pdb
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\bin\Release\EntityFramework.xml
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\obj\Release\Bussiness.csprojResolveAssemblyReference.cache
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\obj\Release\Bussiness.dll
+C:\Users\Ferhat\Desktop\ENotebook\Bussiness\obj\Release\Bussiness.pdb
